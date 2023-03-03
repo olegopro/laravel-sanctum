@@ -1,11 +1,43 @@
 <template>
-    <h1>Login</h1>
+    <h1>Вход</h1>
+
+    <form @submit.prevent="login">
+        <div class="mb-3">
+            <label for="email" class="form-label">Почта</label>
+            <input v-model="email" type="email" class="form-control" id="email" placeholder="name@example.com">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Пароль</label>
+            <input v-model="password" type="password" class="form-control" id="password">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Вход</button>
+    </form>
+
 </template>
 
 <script>
-    export default {}
+    export default {
+        data() {
+            return {
+                email: null,
+                password: null
+            }
+        },
+
+        methods: {
+            login() {
+                axios.get('/sanctum/csrf-cookie').then(() => {
+
+                    axios.post('/login', {
+                        email: this.email,
+                        password: this.password
+                    })
+                        .then(response => console.log(response))
+                        .catch(error => console.log(error.response))
+
+                })
+            }
+        }
+    }
 </script>
-
-<style scoped lang="scss">
-
-</style>
