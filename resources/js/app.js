@@ -1,10 +1,10 @@
 import { createApp } from 'vue'
-import index from './components/Index.vue'
 import router from './router'
+import App from './App.vue'
 
 require('./bootstrap')
 
 
-createApp(index)
+createApp(App)
     .use(router)
     .mount('#app')

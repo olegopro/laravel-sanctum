@@ -3,33 +3,48 @@ import Dashboard from './components/Dashboard.vue'
 import Login from './components/Login.vue'
 import Registration from './components/Registration.vue'
 import Personal from './components/Personal.vue'
-import Index from './components/Index.vue'
+import MainLayout from './layouts/MainLayout.vue'
 
 const routes = [
     {
-        path: '/index',
-        component: Index,
-        name: 'index'
+        path: '/',
+        component: MainLayout,
+        name: 'index',
+        meta: {
+            layout: 'main'
+        }
     },
     {
         path: '/dashboard',
         component: Dashboard,
-        name: 'dashboard'
+        name: 'dashboard',
+        meta: {
+            layout: 'main'
+        }
     },
     {
         path: '/user/login',
         component: Login,
-        name: 'user.login'
+        name: 'user.login',
+        meta: {
+            layout: 'main'
+        }
     },
     {
         path: '/user/registration',
         component: Registration,
-        name: 'user.registration'
+        name: 'user.registration',
+        meta: {
+            layout: 'main'
+        }
     },
     {
         path: '/user/personal',
         component: Personal,
-        name: 'user.personal'
+        name: 'user.personal',
+        meta: {
+            layout: 'main'
+        }
     }
 ]
 
