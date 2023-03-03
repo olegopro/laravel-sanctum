@@ -15,7 +15,7 @@
 
     <div class="row">
         <div class="col-12">
-            <table class="table table-hover" v-if="getAccounts.length">
+            <table class="table table-hover" v-if="getMessages.length">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -28,14 +28,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="account in getAccounts" :key="account.account_id">
-                        <th scope="row">{{ account.account_id }}</th>
-                        <td>{{ account.screen_name }}</td>
-                        <td>{{ account.phone }}</td>
-                        <td>{{ account.date }}</td>
-                        <td>{{ account.message }}</td>
+                    <tr v-for="message in getMessages" :key="message.id">
+                        <th scope="row">{{ message.id }}</th>
+                        <td>{{ message.name }}</td>
+                        <td>{{ message.telephone }}</td>
+                        <td>{{ message.created_at }}</td>
+                        <td>{{ message.message }}</td>
                         <td>
-                            <MessageStatus type="processed" />
+                            <MessageStatus :type="message.status" />
                         </td>
                         <td>
                             <button
@@ -78,23 +78,22 @@
     import MessageStatus from '../components/Messages/MessageStatus.vue'
     import DeleteMessage from '../components/Messages/Modals/DeleteMessage.vue'
     import EditMessage from '../components/Messages/Modals/EditMessage.vue'
+    import { mapActions, mapGetters } from 'vuex'
 
     export default {
         components: { EditMessage, MessageStatus, DeleteMessage },
 
-        data() {
-            return {
-                getAccounts: [
-                    {
-                        account_id: 1,
-                        screen_name: 'Маша',
-                        phone: '+790121212',
-                        date: '12.12.12',
-                        status: 'В ожидании',
-                        message: 'Может показаться странным, но герцог графства коронован'
-                    }
-                ]
-            }
+
+        computed:{
+            ...mapGetters('messages', ['getMessages'])
+        },
+
+        mounted() {
+            this.allMessages()
+        },
+
+        methods: {
+            ...mapActions('messages', ['allMessages'])
         }
     }
 </script>
