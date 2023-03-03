@@ -46,7 +46,10 @@
                         password: this.password,
                         password_confirmation: this.password_confirmation
                     })
-                        .then(response => console.log(response))
+                        .then(response => {
+                            localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN'])
+                            this.$router.push({name: 'user.personal'})
+                        })
                         .catch(error => console.log(error.response))
                 })
             }

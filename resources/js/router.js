@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Get from './components/Dashboard.vue'
 import Login from './components/Login.vue'
 import Registration from './components/Registration.vue'
+import Personal from './components/Personal.vue'
 
 const routes = [
     {
@@ -18,6 +19,11 @@ const routes = [
         path: '/user/registration',
         component: Registration,
         name: 'user.registration'
+    },
+    {
+        path: '/user/personal',
+        component: Personal,
+        name: 'user.personal'
     }
 ]
 

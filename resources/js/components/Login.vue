@@ -32,7 +32,7 @@
                         email: this.email,
                         password: this.password
                     })
-                        .then(response => console.log(response))
+                        .then(response => localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN']))
                         .catch(error => console.log(error.response))
                 })
             }

@@ -2,6 +2,7 @@
     <div>
         <router-link :to="{name: 'get.index'}">Главная</router-link>
         <router-link :to="{name: 'user.login'}">Вход</router-link>
+        <router-link :to="{name: 'user.personal'}">Personal</router-link>
         <router-link :to="{name: 'user.registration'}">Регистрация</router-link>
         <a @click.prevent="logout" href="#">Выход</a>
 
@@ -14,7 +15,10 @@
         methods: {
             logout() {
                 axios.post('/logout')
-                    .then(()=> this.$router.push({name: 'user.login'}))
+                    .then(() => {
+                        localStorage.removeItem('x_xsrf_token')
+                        this.$router.push({ name: 'user.login' })
+                    })
             }
         }
     }
