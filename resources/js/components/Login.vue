@@ -28,14 +28,12 @@
         methods: {
             login() {
                 axios.get('/sanctum/csrf-cookie').then(() => {
-
                     axios.post('/login', {
                         email: this.email,
                         password: this.password
                     })
                         .then(response => console.log(response))
                         .catch(error => console.log(error.response))
-
                 })
             }
         }
