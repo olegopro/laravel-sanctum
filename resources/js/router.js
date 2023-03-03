@@ -1,14 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Get from './components/Dashboard.vue'
+import Dashboard from './components/Dashboard.vue'
 import Login from './components/Login.vue'
 import Registration from './components/Registration.vue'
 import Personal from './components/Personal.vue'
+import Index from './components/Index.vue'
 
 const routes = [
     {
-        path: '/get',
-        component: Get,
-        name: 'get.index'
+        path: '/index',
+        component: Index,
+        name: 'index'
+    },
+    {
+        path: '/dashboard',
+        component: Dashboard,
+        name: 'dashboard'
     },
     {
         path: '/user/login',
@@ -28,12 +34,29 @@ const routes = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
-    routes,
+    history: createWebHistory(),
+    routes
     // linkActiveClass: 'active'
 })
 
+router.beforeEach((to, from, next) => {
+    const token = localStorage.getItem('x_xsrf_token')
+
+    if (!token) {
+        if (to.name === 'user.login' || to.name === 'user.registration') {
+            return next()
+        } else {
+            return next({ name: 'user.login' })
+        }
+    }
+
+    if (to.name === 'user.login' || to.name === 'user.registration' && token) {
+        return next({
+            name: 'dashboard'
+        })
+    }
+
+    next()
+})
+
 export default router
-
-
-

@@ -23245,7 +23245,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      token: null
+    };
+  },
+  mounted: function mounted() {
+    console.log(this.token);
+    this.getToken();
+  },
+  updated: function updated() {
+    console.log(this.token);
+    this.getToken();
+  },
   methods: {
+    getToken: function getToken() {
+      this.token = localStorage.getItem('x_xsrf_token');
+    },
     logout: function logout() {
       var _this = this;
       axios.post('/logout').then(function () {
@@ -23286,7 +23302,10 @@ __webpack_require__.r(__webpack_exports__);
           email: _this.email,
           password: _this.password
         }).then(function (response) {
-          return localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN']);
+          localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN']);
+          _this.$router.push({
+            name: 'dashboard'
+          });
         })["catch"](function (error) {
           return console.log(error.response);
         });
@@ -23344,7 +23363,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (response) {
           localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN']);
           _this.$router.push({
-            name: 'user.personal'
+            name: 'dashboard'
           });
         })["catch"](function (error) {
           return console.log(error.response);
@@ -23391,16 +23410,18 @@ __webpack_require__.r(__webpack_exports__);
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
   var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, [$data.token ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
+    key: 0,
     to: {
-      name: 'get.index'
+      name: 'dashboard'
     }
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Главная")];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["to"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$data.token ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
+    key: 1,
     to: {
       name: 'user.login'
     }
@@ -23409,7 +23430,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Вход")];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["to"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  }, 8 /* PROPS */, ["to"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.token ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
+    key: 2,
     to: {
       name: 'user.personal'
     }
@@ -23418,7 +23440,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Personal")];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["to"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  }, 8 /* PROPS */, ["to"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$data.token ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
+    key: 3,
     to: {
       name: 'user.registration'
     }
@@ -23427,12 +23450,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Регистрация")];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["to"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }, 8 /* PROPS */, ["to"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.token ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+    key: 4,
     onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.logout && $options.logout.apply($options, arguments);
     }, ["prevent"])),
     href: "#"
-  }, "Выход"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)]);
+  }, "Выход")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)]);
 }
 
 /***/ }),
@@ -23624,10 +23648,13 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
   \***********************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
+var router = __webpack_require__(/*! ./router */ "./resources/js/router.js");
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 try {
   __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
-} catch (e) {}
+} catch (e) {
+  console.log(e);
+}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -23638,6 +23665,17 @@ try {
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.axios.defaults.withCredentials = true;
+window.axios.interceptors.response.use({}, function (error) {
+  if (error.response.status === 401 || error.response.status === 419) {
+    var token = localStorage.getItem('x_xsrf_token');
+    if (token) {
+      localStorage.removeItem('x_xsrf_token');
+    }
+    router.push({
+      name: 'user.login'
+    });
+  }
+});
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -23669,21 +23707,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.mjs");
 /* harmony import */ var _components_Dashboard_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Dashboard.vue */ "./resources/js/components/Dashboard.vue");
 /* harmony import */ var _components_Login_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Login.vue */ "./resources/js/components/Login.vue");
 /* harmony import */ var _components_Registration_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Registration.vue */ "./resources/js/components/Registration.vue");
 /* harmony import */ var _components_Personal_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Personal.vue */ "./resources/js/components/Personal.vue");
-/* provided dependency */ var process = __webpack_require__(/*! process/browser.js */ "./node_modules/process/browser.js");
+/* harmony import */ var _components_Index_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Index.vue */ "./resources/js/components/Index.vue");
+
 
 
 
 
 
 var routes = [{
-  path: '/get',
+  path: '/index',
+  component: _components_Index_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+  name: 'index'
+}, {
+  path: '/dashboard',
   component: _components_Dashboard_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-  name: 'get.index'
+  name: 'dashboard'
 }, {
   path: '/user/login',
   component: _components_Login_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -23697,12 +23740,30 @@ var routes = [{
   component: _components_Personal_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
   name: 'user.personal'
 }];
-var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_4__.createRouter)({
-  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_4__.createWebHistory)(process.env.BASE_URL),
+var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.createRouter)({
+  history: (0,vue_router__WEBPACK_IMPORTED_MODULE_5__.createWebHistory)(),
   routes: routes
   // linkActiveClass: 'active'
 });
 
+router.beforeEach(function (to, from, next) {
+  var token = localStorage.getItem('x_xsrf_token');
+  if (!token) {
+    if (to.name === 'user.login' || to.name === 'user.registration') {
+      return next();
+    } else {
+      return next({
+        name: 'user.login'
+      });
+    }
+  }
+  if (to.name === 'user.login' || to.name === 'user.registration' && token) {
+    return next({
+      name: 'dashboard'
+    });
+  }
+  next();
+});
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (router);
 
 /***/ }),

@@ -48,7 +48,7 @@
                     })
                         .then(response => {
                             localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN'])
-                            this.$router.push({name: 'user.personal'})
+                            this.$router.push({name: 'dashboard'})
                         })
                         .catch(error => console.log(error.response))
                 })

@@ -32,7 +32,10 @@
                         email: this.email,
                         password: this.password
                     })
-                        .then(response => localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN']))
+                        .then(response => {
+                            localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN'])
+                            this.$router.push({name: 'dashboard'})
+                        })
                         .catch(error => console.log(error.response))
                 })
             }
