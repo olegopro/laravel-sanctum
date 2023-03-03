@@ -4,7 +4,7 @@ import App from './App.vue'
 
 require('./bootstrap')
 
-
 createApp(App)
     .use(router)
     .mount('#app')
+

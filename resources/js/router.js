@@ -2,8 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Dashboard from './components/Dashboard.vue'
 import Login from './components/Login.vue'
 import Registration from './components/Registration.vue'
-import Personal from './components/Personal.vue'
+import Personal from './views/Messages.vue'
 import MainLayout from './layouts/MainLayout.vue'
+import Messages from './views/Messages.vue'
 
 const routes = [
     {
@@ -39,9 +40,9 @@ const routes = [
         }
     },
     {
-        path: '/user/personal',
-        component: Personal,
-        name: 'user.personal',
+        path: '/user/messages',
+        component: Messages,
+        name: 'user.messages',
         meta: {
             layout: 'main'
         }
@@ -50,8 +51,8 @@ const routes = [
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
-    // linkActiveClass: 'active'
+    routes,
+    linkActiveClass: 'active'
 })
 
 router.beforeEach((to, from, next) => {
