@@ -43,6 +43,7 @@
                                 data-bs-target="#editMessage"
                                 data-bs-toggle="modal"
                                 type="button"
+                                @click="setDataMessage(message.id)"
                             >
                                 <svg width="16" height="16">
                                     <use xlink:href="#info"></use>
@@ -69,7 +70,7 @@
 
     <Teleport to="body">
         <DeleteMessage />
-        <EditMessage />
+        <EditMessage ref="EditMessage" />
     </Teleport>
 
 </template>
@@ -79,12 +80,14 @@
     import DeleteMessage from '../components/Messages/Modals/DeleteMessage.vue'
     import EditMessage from '../components/Messages/Modals/EditMessage.vue'
     import { mapActions, mapGetters } from 'vuex'
+    import { toRaw } from 'vue'
+    import login from '../components/Login.vue'
 
     export default {
         components: { EditMessage, MessageStatus, DeleteMessage },
 
 
-        computed:{
+        computed: {
             ...mapGetters('messages', ['getMessages'])
         },
 
@@ -93,7 +96,12 @@
         },
 
         methods: {
-            ...mapActions('messages', ['allMessages'])
+            ...mapActions('messages', ['allMessages', 'getMessageById']),
+
+            setDataMessage(id) {
+                this.getMessageById(id)
+                    .then(data => this.$refs.EditMessage.data = data)
+            }
         }
     }
 </script>

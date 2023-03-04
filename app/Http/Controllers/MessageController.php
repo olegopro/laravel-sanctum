@@ -36,7 +36,7 @@ class MessageController extends Controller
      */
     public function show($id)
     {
-        //
+        return response(Message::find($id));
     }
 
     /**

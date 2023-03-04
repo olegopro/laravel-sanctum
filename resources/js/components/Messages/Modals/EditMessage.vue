@@ -7,22 +7,27 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="input-group">
-                        <span class="input-group-text">Access token</span>
 
-                        <input
-                            aria-describedby="access-token"
-                            aria-label="Access token"
-                            class="form-control"
-                            type="text"
-                        >
+                    <MessageStatus :type="data.status" />
+                    <span>{{ data.created_at }}</span>
 
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Имя</span>
+                        <input class="form-control" type="text" :value="data.name">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Телефон</span>
+                        <input class="form-control" type="text" :value="data.telephone">
+                    </div>
+                    <div class="input-group mb-3">
+
+                        <textarea class="form-control" type="text" :value="data.message"></textarea>
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" >Отмена</button>
-                    <button type="submit" class="btn btn-success" >Добавить</button>
+                    <button type="button" class="btn btn-secondary">Закрыть</button>
+                    <button type="submit" class="btn btn-success">Сохранить</button>
                 </div>
             </form>
         </div>
@@ -30,7 +35,18 @@
 </template>
 
 <script>
-    export default {}
+
+    import MessageStatus from '../MessageStatus.vue'
+
+    export default {
+        components: { MessageStatus },
+        data() {
+            return {
+                data: ''
+            }
+        }
+    }
+
 </script>
 
 <style scoped lang="scss">

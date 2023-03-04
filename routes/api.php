@@ -23,10 +23,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::resource('/messages', MessageController::class);
 });
-
-Route::resource('/messages', MessageController::class);
-// Route::get('/messages', [MessageController::class, 'index']);
 
 Route::resource('/add-message', HelpdeskController::class);
 

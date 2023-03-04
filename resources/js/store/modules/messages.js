@@ -17,6 +17,11 @@ export default {
         async allMessages({ commit }) {
             const { data } = await axios.get('http://localhost/api/messages')
             commit('addMessages', data)
+        },
+
+        async getMessageById(_, id =1) {
+            const { data } = await axios.get(`http://localhost/api/messages/${id}`)
+            return data
         }
     },
 
