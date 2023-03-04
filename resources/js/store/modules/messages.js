@@ -8,7 +8,7 @@ export default {
     },
 
     mutations: {
-        addMessages(state, messages){
+        addMessages(state, messages) {
             state.messages = messages
         }
     },
@@ -21,7 +21,7 @@ export default {
     },
 
     getters: {
-        getMessages(state){
+        getMessages(state) {
             return state.messages
         }
     }

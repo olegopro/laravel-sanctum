@@ -1,6 +1,7 @@
 <template>
    <nav class=" col-6 mx-auto nav nav-pills nav-fill">
        <router-link v-if="x_xsfr_token" :to="{name: 'dashboard'}" class="nav-link">Главная</router-link>
+       <router-link v-if="!x_xsfr_token" :to="{name: 'helpdesk'}" class="nav-link">Обратная связь</router-link>
        <router-link v-if="!x_xsfr_token" :to="{name: 'user.login'}" class="nav-link">Вход</router-link>
        <router-link v-if="x_xsfr_token" :to="{name: 'user.messages'}" class="nav-link">Сообщения</router-link>
        <router-link v-if="x_xsfr_token" to="/" class="nav-link">Настройки</router-link>
