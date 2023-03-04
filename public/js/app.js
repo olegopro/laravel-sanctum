@@ -22214,7 +22214,9 @@ try {
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/dist/browser/axios.cjs");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.axios.defaults.withCredentials = true;
-window.axios.interceptors.response.use({}, function (error) {
+window.axios.interceptors.response.use(function (response) {
+  return response;
+}, function (error) {
   if (error.response.status === 401 || error.response.status === 419) {
     var token = localStorage.getItem('x_xsrf_token');
     if (token) {
@@ -22224,6 +22226,7 @@ window.axios.interceptors.response.use({}, function (error) {
       name: 'user.login'
     });
   }
+  return Promise.reject(error);
 });
 
 /**

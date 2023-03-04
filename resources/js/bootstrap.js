@@ -19,17 +19,20 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
 window.axios.defaults.withCredentials = true
 
-window.axios.interceptors.response.use({}, error => {
-    if (error.response.status === 401 || error.response.status === 419) {
-        const token = localStorage.getItem('x_xsrf_token')
+window.axios.interceptors.response.use((response) => response,
+    error => {
+        if (error.response.status === 401 || error.response.status === 419) {
+            const token = localStorage.getItem('x_xsrf_token')
 
-        if (token) {
-            localStorage.removeItem('x_xsrf_token')
+            if (token) {
+                localStorage.removeItem('x_xsrf_token')
+            }
+
+            router.push({ name: 'user.login' })
         }
 
-        router.push({ name: 'user.login' })
-    }
-})
+        return Promise.reject(error)
+    })
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
