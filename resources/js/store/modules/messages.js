@@ -10,7 +10,7 @@ export default {
     mutations: {
         addMessages(state, messages) {
             state.messages = messages
-        }
+        },
     },
 
     actions: {
@@ -28,6 +28,7 @@ export default {
             const { data } = await axios.put(`http://localhost/api/messages/${id}`, {
                name, telephone, message, status
             })
+
             return data
         }
     },

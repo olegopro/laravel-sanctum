@@ -5,8 +5,7 @@
         </div>
         <div class="col">
             <button class="btn btn-success btn-action float-end"
-                    data-bs-target="#addAccount"
-                    data-bs-toggle="modal"
+                    @click="allMessages"
                     type="button">
                 Обновить
             </button>
@@ -88,7 +87,6 @@
         provide() {
             return {
                 saveMessageErrors: computed(() => this.saveMessageErrors),
-                saveMessageLoading: computed(() => this.saveMessageLoading),
                 closeMessagePopup: computed(() => this.closeMessagePopup)
             }
         },
@@ -96,7 +94,6 @@
         data() {
             return {
                 saveMessageErrors: null,
-                saveMessageLoading: false,
                 closeMessagePopup: false
             }
         },
@@ -113,19 +110,19 @@
             ...mapActions('messages', ['allMessages', 'getMessageById', 'updateMessage']),
 
             setDataMessage(id) {
+                this.saveMessageErrors = null
                 this.getMessageById(id)
                     .then(data => this.$refs.messageData.data = data)
+
             },
 
             saveMessage(payload){
-                this.saveMessageLoading = true
                 this.updateMessage(payload)
                     .then(() => {
-                        this.saveMessageLoading = false
                         this.closeMessagePopup = true
+                        this.allMessages()
                     })
                     .catch(error => {
-                        this.saveMessageLoading = false
                         this.saveMessageErrors = error.response.data.errors
                     })
             }

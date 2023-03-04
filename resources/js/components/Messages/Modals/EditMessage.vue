@@ -46,7 +46,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @click="modalHide">Закрыть</button>
-                    <button type="submit" class="btn btn-success" :disabled="loading">Сохранить</button>
+                    <button type="submit" class="btn btn-success">Сохранить</button>
                 </div>
             </form>
         </div>
@@ -60,14 +60,13 @@
 
     export default {
         components: { MessageStatus },
-        inject: ['saveMessageErrors', 'saveMessageLoading', 'closeMessagePopup'],
+        inject: ['saveMessageErrors', 'closeMessagePopup'],
         emits: ['save-message'],
 
         data() {
             return {
                 data: '',
                 messageError: this.saveMessageErrors,
-                loading: this.saveMessageLoading,
                 closePopup: this.closeMessagePopup
             }
         },
