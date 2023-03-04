@@ -70,7 +70,7 @@
 
     <Teleport to="body">
         <DeleteMessage />
-        <EditMessage ref="EditMessage" @save-message="saveMessage" />
+        <EditMessage ref="messageData" @save-message="saveMessage" />
     </Teleport>
 
 </template>
@@ -80,12 +80,26 @@
     import DeleteMessage from '../components/Messages/Modals/DeleteMessage.vue'
     import EditMessage from '../components/Messages/Modals/EditMessage.vue'
     import { mapActions, mapGetters } from 'vuex'
-    import { toRaw } from 'vue'
-    import login from '../components/Login.vue'
+    import { computed } from 'vue'
 
     export default {
         components: { EditMessage, MessageStatus, DeleteMessage },
 
+        provide() {
+            return {
+                saveMessageErrors: computed(() => this.saveMessageErrors),
+                saveMessageLoading: computed(() => this.saveMessageLoading),
+                closeMessagePopup: computed(() => this.closeMessagePopup)
+            }
+        },
+
+        data() {
+            return {
+                saveMessageErrors: null,
+                saveMessageLoading: false,
+                closeMessagePopup: false
+            }
+        },
 
         computed: {
             ...mapGetters('messages', ['getMessages'])
@@ -100,16 +114,21 @@
 
             setDataMessage(id) {
                 this.getMessageById(id)
-                    .then(data => this.$refs.EditMessage.data = data)
+                    .then(data => this.$refs.messageData.data = data)
             },
 
             saveMessage(payload){
+                this.saveMessageLoading = true
                 this.updateMessage(payload)
+                    .then(() => {
+                        this.saveMessageLoading = false
+                        this.closeMessagePopup = true
+                    })
+                    .catch(error => {
+                        this.saveMessageLoading = false
+                        this.saveMessageErrors = error.response.data.errors
+                    })
             }
         }
     }
 </script>
-
-<style scoped lang="scss">
-
-</style>

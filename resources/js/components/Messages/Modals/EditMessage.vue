@@ -14,19 +14,39 @@
                         <span class="input-group-text">Имя</span>
                         <input class="form-control" type="text" v-model="data.name">
                     </div>
+
+                    <div v-if="messageError?.name" class="alert alert-danger mt-3" role="alert">
+                        <span v-for="message in messageError.name">
+                            {{ message }}
+                        </span>
+                    </div>
+
                     <div class="input-group mb-3">
                         <span class="input-group-text">Телефон</span>
                         <input class="form-control" type="text" v-model="data.telephone">
                     </div>
+
+                    <div v-if="messageError?.telephone" class="alert alert-danger mt-3" role="alert">
+                        <span v-for="message in messageError.telephone">
+                            {{ message }}
+                        </span>
+                    </div>
+
                     <div class="input-group mb-3">
 
                         <textarea class="form-control" type="text" v-model="data.message"></textarea>
                     </div>
 
+                    <div v-if="messageError?.message" class="alert alert-danger mt-3" role="alert">
+                        <span v-for="message in messageError.message">
+                            {{ message }}
+                        </span>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary">Закрыть</button>
-                    <button type="submit" class="btn btn-success">Сохранить</button>
+                    <button type="button" class="btn btn-secondary" @click="modalHide">Закрыть</button>
+                    <button type="submit" class="btn btn-success" :disabled="loading">Сохранить</button>
                 </div>
             </form>
         </div>
@@ -36,20 +56,34 @@
 <script>
 
     import MessageStatus from '../MessageStatus.vue'
+    import { Modal } from 'bootstrap'
 
     export default {
         components: { MessageStatus },
-        emits:['save-message'],
+        inject: ['saveMessageErrors', 'saveMessageLoading', 'closeMessagePopup'],
+        emits: ['save-message'],
 
         data() {
             return {
                 data: '',
-                name: '',
+                messageError: this.saveMessageErrors,
+                loading: this.saveMessageLoading,
+                closePopup: this.closeMessagePopup
             }
         },
 
-        methods:{
-            saveMessageData(){
+        watch: {
+            closePopup(value) {
+                if (value) this.modalHide()
+            }
+        },
+
+        mounted() {
+            this.modal = new Modal(document.getElementById('editMessage'))
+        },
+
+        methods: {
+            saveMessageData() {
                 this.$emit('save-message', {
                     id: this.data.id,
                     name: this.data.name,
@@ -57,12 +91,12 @@
                     message: this.data.message,
                     status: this.data.status
                 })
+            },
+
+            modalHide() {
+                this.modal.hide()
             }
         }
     }
 
 </script>
-
-<style scoped lang="scss">
-
-</style>
