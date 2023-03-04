@@ -19,8 +19,15 @@ export default {
             commit('addMessages', data)
         },
 
-        async getMessageById(_, id =1) {
+        async getMessageById(_, id) {
             const { data } = await axios.get(`http://localhost/api/messages/${id}`)
+            return data
+        },
+
+        async updateMessage(_, {id, name, telephone, message, status}) {
+            const { data } = await axios.put(`http://localhost/api/messages/${id}`, {
+               name, telephone, message, status
+            })
             return data
         }
     },

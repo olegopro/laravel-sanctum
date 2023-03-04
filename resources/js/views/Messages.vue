@@ -70,7 +70,7 @@
 
     <Teleport to="body">
         <DeleteMessage />
-        <EditMessage ref="EditMessage" />
+        <EditMessage ref="EditMessage" @save-message="saveMessage" />
     </Teleport>
 
 </template>
@@ -96,11 +96,15 @@
         },
 
         methods: {
-            ...mapActions('messages', ['allMessages', 'getMessageById']),
+            ...mapActions('messages', ['allMessages', 'getMessageById', 'updateMessage']),
 
             setDataMessage(id) {
                 this.getMessageById(id)
                     .then(data => this.$refs.EditMessage.data = data)
+            },
+
+            saveMessage(payload){
+                this.updateMessage(payload)
             }
         }
     }

@@ -1,27 +1,26 @@
 <template>
     <div class="modal fade" id="editMessage" tabindex="-1" aria-labelledby="Edit message" style="display: none;" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <form class="modal-content">
+            <form @submit.prevent="saveMessageData" class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="Add account">Редактирование сообщения</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
                     <MessageStatus :type="data.status" />
                     <span>{{ data.created_at }}</span>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Имя</span>
-                        <input class="form-control" type="text" :value="data.name">
+                        <input class="form-control" type="text" v-model="data.name">
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text">Телефон</span>
-                        <input class="form-control" type="text" :value="data.telephone">
+                        <input class="form-control" type="text" v-model="data.telephone">
                     </div>
                     <div class="input-group mb-3">
 
-                        <textarea class="form-control" type="text" :value="data.message"></textarea>
+                        <textarea class="form-control" type="text" v-model="data.message"></textarea>
                     </div>
 
                 </div>
@@ -40,9 +39,24 @@
 
     export default {
         components: { MessageStatus },
+        emits:['save-message'],
+
         data() {
             return {
-                data: ''
+                data: '',
+                name: '',
+            }
+        },
+
+        methods:{
+            saveMessageData(){
+                this.$emit('save-message', {
+                    id: this.data.id,
+                    name: this.data.name,
+                    telephone: this.data.telephone,
+                    message: this.data.message,
+                    status: this.data.status
+                })
             }
         }
     }

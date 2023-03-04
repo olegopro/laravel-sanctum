@@ -21352,10 +21352,23 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     MessageStatus: _MessageStatus_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
+  emits: ['save-message'],
   data: function data() {
     return {
-      data: ''
+      data: '',
+      name: ''
     };
+  },
+  methods: {
+    saveMessageData: function saveMessageData() {
+      this.$emit('save-message', {
+        id: this.data.id,
+        name: this.data.name,
+        telephone: this.data.telephone,
+        message: this.data.message,
+        status: this.data.status
+      });
+    }
   }
 });
 
@@ -21554,12 +21567,15 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   mounted: function mounted() {
     this.allMessages();
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapActions)('messages', ['allMessages', 'getMessageById'])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_5__.mapActions)('messages', ['allMessages', 'getMessageById', 'updateMessage'])), {}, {
     setDataMessage: function setDataMessage(id) {
       var _this = this;
       this.getMessageById(id).then(function (data) {
         return _this.$refs.EditMessage.data = data;
       });
+    },
+    saveMessage: function saveMessage(payload) {
+      this.updateMessage(payload);
     }
   })
 });
@@ -21776,10 +21792,7 @@ var _hoisted_1 = {
 var _hoisted_2 = {
   "class": "modal-dialog modal-dialog-centered"
 };
-var _hoisted_3 = {
-  "class": "modal-content"
-};
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "modal-header"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
   "class": "modal-title fs-5",
@@ -21790,28 +21803,25 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "data-bs-dismiss": "modal",
   "aria-label": "Close"
 })], -1 /* HOISTED */);
-var _hoisted_5 = {
+var _hoisted_4 = {
   "class": "modal-body"
 };
-var _hoisted_6 = {
+var _hoisted_5 = {
   "class": "input-group mb-3"
 };
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "input-group-text"
 }, "Имя", -1 /* HOISTED */);
-var _hoisted_8 = ["value"];
+var _hoisted_7 = {
+  "class": "input-group mb-3"
+};
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+  "class": "input-group-text"
+}, "Телефон", -1 /* HOISTED */);
 var _hoisted_9 = {
   "class": "input-group mb-3"
 };
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-  "class": "input-group-text"
-}, "Телефон", -1 /* HOISTED */);
-var _hoisted_11 = ["value"];
-var _hoisted_12 = {
-  "class": "input-group mb-3"
-};
-var _hoisted_13 = ["value"];
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "modal-footer"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   type: "button",
@@ -21823,21 +21833,32 @@ var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_MessageStatus = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MessageStatus");
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MessageStatus, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+    onSubmit: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+      return $options.saveMessageData && $options.saveMessageData.apply($options, arguments);
+    }, ["prevent"])),
+    "class": "modal-content"
+  }, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MessageStatus, {
     type: $data.data.status
-  }, null, 8 /* PROPS */, ["type"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.data.created_at), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 8 /* PROPS */, ["type"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.data.created_at), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "class": "form-control",
     type: "text",
-    value: $data.data.name
-  }, null, 8 /* PROPS */, _hoisted_8)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+      return $data.data.name = $event;
+    })
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.data.name]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "class": "form-control",
     type: "text",
-    value: $data.data.telephone
-  }, null, 8 /* PROPS */, _hoisted_11)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+      return $data.data.telephone = $event;
+    })
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.data.telephone]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     "class": "form-control",
     type: "text",
-    value: $data.data.message
-  }, null, 8 /* PROPS */, _hoisted_13)])]), _hoisted_14])])]);
+    "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
+      return $data.data.message = $event;
+    })
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.data.message]])])]), _hoisted_10], 32 /* HYDRATE_EVENTS */)])]);
 }
 
 /***/ }),
@@ -22255,8 +22276,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), 128 /* KEYED_FRAGMENT */))])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h3", _hoisted_11, "Список аккаунтов пустой"))])]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Teleport, {
     to: "body"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeleteMessage), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_EditMessage, {
-    ref: "EditMessage"
-  }, null, 512 /* NEED_PATCH */)]))], 64 /* STABLE_FRAGMENT */);
+    ref: "EditMessage",
+    onSaveMessage: $options.saveMessage
+  }, null, 8 /* PROPS */, ["onSaveMessage"])]))], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -22509,25 +22531,48 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    getMessageById: function getMessageById(_) {
-      var _arguments = arguments;
+    getMessageById: function getMessageById(_, id) {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var id, _yield$axios$get2, data;
+        var _yield$axios$get2, data;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              id = _arguments.length > 1 && _arguments[1] !== undefined ? _arguments[1] : 1;
-              _context2.next = 3;
+              _context2.next = 2;
               return axios.get("http://localhost/api/messages/".concat(id));
-            case 3:
+            case 2:
               _yield$axios$get2 = _context2.sent;
               data = _yield$axios$get2.data;
               return _context2.abrupt("return", data);
-            case 6:
+            case 5:
             case "end":
               return _context2.stop();
           }
         }, _callee2);
+      }))();
+    },
+    updateMessage: function updateMessage(_, _ref2) {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var id, name, telephone, message, status, _yield$axios$put, data;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              id = _ref2.id, name = _ref2.name, telephone = _ref2.telephone, message = _ref2.message, status = _ref2.status;
+              _context3.next = 3;
+              return axios.put("http://localhost/api/messages/".concat(id), {
+                name: name,
+                telephone: telephone,
+                message: message,
+                status: status
+              });
+            case 3:
+              _yield$axios$put = _context3.sent;
+              data = _yield$axios$put.data;
+              return _context3.abrupt("return", data);
+            case 6:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3);
       }))();
     }
   },
