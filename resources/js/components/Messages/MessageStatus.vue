@@ -34,6 +34,9 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+ span{
+     font-size: .8rem;
+     user-select: none;
+ }
 </style>

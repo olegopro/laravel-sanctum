@@ -8,6 +8,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        echo 12312312;
+        echo 'Dashboard controller';
     }
 }

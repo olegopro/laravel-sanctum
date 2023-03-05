@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Dashboard from './components/Dashboard.vue'
-import Login from './components/Login.vue'
-import Registration from './components/Registration.vue'
+import Dashboard from './views/Dashboard.vue'
+import Login from './views/Login.vue'
+import Registration from './views/Registration.vue'
 import Messages from './views/Messages.vue'
 import MainLayout from './layouts/MainLayout.vue'
 import Helpdesk from './views/Helpdesk.vue'
+import Settings from './views/Settings.vue'
 
 const routes = [
     {
@@ -27,6 +28,14 @@ const routes = [
         path: '/dashboard',
         component: Dashboard,
         name: 'dashboard',
+        meta: {
+            layout: 'main'
+        }
+    },
+    {
+        path: '/settings',
+        component: Settings,
+        name: 'settings',
         meta: {
             layout: 'main'
         }

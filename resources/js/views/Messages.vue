@@ -38,28 +38,30 @@
                             <MessageStatus :type="message.status" />
                         </td>
                         <td>
-                            <button
-                                class="btn btn-primary me-2 button-style"
-                                data-bs-target="#editMessage"
-                                data-bs-toggle="modal"
-                                type="button"
-                                @click="setDataMessage(message.id)"
-                            >
-                                <svg width="16" height="16">
-                                    <use xlink:href="#info"></use>
-                                </svg>
-                            </button>
+                            <div class="d-flex flex-nowrap">
+                                <button
+                                    class="btn btn-primary me-2 button-style"
+                                    data-bs-target="#editMessage"
+                                    data-bs-toggle="modal"
+                                    type="button"
+                                    @click="setDataMessage(message.id)"
+                                >
+                                    <svg width="16" height="16">
+                                        <use xlink:href="#info"></use>
+                                    </svg>
+                                </button>
 
-                            <button
-                                class="btn btn-danger button-style"
-                                data-bs-target="#deleteMessage"
-                                data-bs-toggle="modal"
-                                type="button"
-                            >
-                                <svg width="16" height="16">
-                                    <use xlink:href="#delete"></use>
-                                </svg>
-                            </button>
+                                <button
+                                    class="btn btn-danger button-style"
+                                    data-bs-target="#deleteMessage"
+                                    data-bs-toggle="modal"
+                                    type="button"
+                                >
+                                    <svg width="16" height="16">
+                                        <use xlink:href="#delete"></use>
+                                    </svg>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 </tbody>

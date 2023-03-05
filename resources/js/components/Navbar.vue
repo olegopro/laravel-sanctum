@@ -4,7 +4,7 @@
        <router-link v-if="!x_xsfr_token" :to="{name: 'helpdesk'}" class="nav-link">Обратная связь</router-link>
        <router-link v-if="!x_xsfr_token" :to="{name: 'user.login'}" class="nav-link">Вход</router-link>
        <router-link v-if="x_xsfr_token" :to="{name: 'user.messages'}" class="nav-link">Сообщения</router-link>
-       <router-link v-if="x_xsfr_token" to="/" class="nav-link">Настройки</router-link>
+       <router-link v-if="x_xsfr_token" :to="{name: 'settings'}" class="nav-link">Настройки</router-link>
        <router-link v-if="!x_xsfr_token" :to="{name: 'user.registration'}" class="nav-link">Регистрация</router-link>
        <a v-if="x_xsfr_token" @click.prevent="logout" href="#" class="nav-link">Выход</a>
    </nav>

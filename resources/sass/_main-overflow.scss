@@ -11,10 +11,46 @@ table {
     thead {
         height: 4rem;
         vertical-align: middle !important;
+
+        tr {
+            th {
+                &:first-child {
+                    padding-left: 20px !important;
+                }
+            }
+
+            th {
+                &:last-child {
+                    padding-right: 20px !important;
+                }
+            }
+        }
     }
 
     tbody {
         tr {
+
+            th {
+                &:first-child {
+                    padding-left: 20px !important;
+                }
+            }
+
+            td {
+                &:last-child {
+                    padding-right: 20px !important;
+                }
+
+                .button-style {
+                    display: inline-flex;
+                    width: 42px;
+                    height: 38px;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0;
+                }
+            }
+
             &:last-child {
                 border-color: transparent;
 
@@ -30,21 +66,14 @@ table {
                     border-bottom-width: 0;
                 }
             }
-
-            td {
-                .button-style {
-                    display: inline-flex;
-                    width: 42px;
-                    height: 38px;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 0;
-                }
-            }
         }
 
         &:last-child {
             border-bottom-width: 0;
         }
     }
+}
+
+.form-control:focus {
+    box-shadow: none !important;
 }

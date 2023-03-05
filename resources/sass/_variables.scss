@@ -1,7 +1,17 @@
 // Body
 $body-bg: #f8fafc;
+$primary: #149cdd;
+$green: #38a06f;
 
 // Typography
 $font-family-sans-serif: 'Nunito', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+
+
+$modal-header-border-color: whitesmoke;
+$modal-footer-border-color: whitesmoke;
+
+// Отключаю автоматическую смену темы
+// https://getbootstrap.com/docs/5.3/customize/color-modes/
+$min-contrast-ratio:   1;

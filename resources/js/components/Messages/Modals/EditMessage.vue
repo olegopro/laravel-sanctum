@@ -64,7 +64,7 @@
 
     import MessageStatus from '../MessageStatus.vue'
     import { Modal } from 'bootstrap'
-    import login from '../../Login.vue'
+    import login from '../../../views/Login.vue'
 
     export default {
         components: { MessageStatus },
