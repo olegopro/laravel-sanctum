@@ -32,7 +32,7 @@
                         <th scope="row">{{ message.id }}</th>
                         <td>{{ message.name }}</td>
                         <td>{{ message.telephone }}</td>
-                        <td>{{ message.created_at }}</td>
+                        <td>{{ dateFormat(message.created_at) }}</td>
                         <td>{{ message.message }}</td>
                         <td>
                             <MessageStatus :type="message.status" />
@@ -105,7 +105,6 @@
             ...mapGetters('messages', ['getMessages']),
 
             filterMessages() {
-
                 return this.getMessages
                     .filter(request => {
                         if (this.filter.telephone) {
@@ -134,8 +133,14 @@
 
             setDataMessage(id) {
                 this.saveMessageErrors = null
+                this.closeMessagePopup = false
                 this.getMessageById(id)
-                    .then(data => this.$refs.messageData.data = data)
+                    .then(data => {
+                        this.$refs.messageData.data = {
+                            ...data,
+                            created_at: this.dateFormat(data.created_at)
+                        }
+                    })
 
             },
 
@@ -148,6 +153,13 @@
                     .catch(error => {
                         this.saveMessageErrors = error.response.data.errors
                     })
+            },
+
+            dateFormat(date) {
+                return new Date(date).toISOString()
+                    .replace('T', ' ')
+                    .replace('Z', '')
+                    .split('.')[0]
             }
         }
     }

@@ -7,8 +7,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <MessageStatus :type="data.status" />
-                    <span>{{ data.created_at }}</span>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Создано: {{ data.created_at }}</span>
+                        <MessageStatus :type="data.status" />
+                    </div>
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Имя</span>
@@ -43,6 +45,11 @@
                         </span>
                     </div>
 
+                    <select class="form-select mb-3" id="status" aria-label="Default select example" v-model="data.status">
+                        <option value="processed">Обработано</option>
+                        <option value="waiting">В ожидании</option>
+                    </select>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @click="modalHide">Закрыть</button>
@@ -57,6 +64,7 @@
 
     import MessageStatus from '../MessageStatus.vue'
     import { Modal } from 'bootstrap'
+    import login from '../../Login.vue'
 
     export default {
         components: { MessageStatus },
