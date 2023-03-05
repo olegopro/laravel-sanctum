@@ -85,7 +85,7 @@ router.beforeEach((to, from, next) => {
 
     if (to.name === 'user.login' || to.name === 'user.registration' && token) {
         return next({
-            name: 'dashboard'
+            name: 'user.messages'
         })
     }
 

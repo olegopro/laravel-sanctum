@@ -32,7 +32,7 @@
                         <th scope="row">{{ message.id }}</th>
                         <td>{{ message.name }}</td>
                         <td class="telephone-thread">{{ message.telephone }}</td>
-                        <td>{{ dateFormat(message.created_at) }}</td>
+                        <td>{{ dateFormatDate(message.created_at) }} {{ dateFormatTime(message.created_at) }}</td>
                         <td>{{ message.message }}</td>
                         <td>
                             <MessageStatus :type="message.status" />
@@ -182,6 +182,14 @@
                     .replace('T', ' ')
                     .replace('Z', '')
                     .split('.')[0]
+            },
+
+            dateFormatDate(date) {
+                return new Date(date).toLocaleDateString()
+            },
+
+            dateFormatTime(date) {
+                return new Date(date).toLocaleTimeString().slice(0, -3)
             }
         }
     }

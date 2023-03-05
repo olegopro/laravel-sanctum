@@ -6,6 +6,13 @@ return [
     'required'   => 'Заполните поле :attribute',
     'numeric'    => 'Поле :attribute должно состоять из цифр',
     'regex'      => 'Неверный формат поля :attribute',
+    'max'                  => [
+        'string'  => 'Длинна поля :attribute не должна превышать :max символов',
+    ],
+    'min'                  => [
+        'string'  => 'Длинна поля :attribute должна быть больше :min символов',
+    ],
+    'confirmed'            => 'Поля :attribute не совпадают',
     'attributes' => [
         'address'                  => 'адрес',
         'age'                      => 'возраст',

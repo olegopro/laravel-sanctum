@@ -20,10 +20,10 @@ class MessageFactory extends Factory
         ];
 
         return [
-            'name'   => $this->faker->name,
+            'name'      => $this->faker->name,
             'telephone' => $this->faker->e164PhoneNumber,
-            'message'=> $this->faker->realTextBetween($minNbChars = 30, $maxNbChars = 255, $indexSize = 2),
-            'status'     => $taskStatus[array_rand($taskStatus)]
+            'message'   => $this->faker->text(rand(20, 255)),
+            'status'    => $taskStatus[array_rand($taskStatus)]
         ];
     }
 }

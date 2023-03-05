@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Message::factory()
-            ->count(50)
+            ->count(100)
             ->create();
     }
 }
