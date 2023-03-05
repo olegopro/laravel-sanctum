@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "vue-router": "^4.1.6",
+        "vue-the-mask": "^0.11.1",
         "vue3-perfect-scrollbar": "^1.6.1",
         "vuex": "^4.0.2"
     }

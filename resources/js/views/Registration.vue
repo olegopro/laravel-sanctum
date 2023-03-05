@@ -5,7 +5,7 @@
         <form @submit.prevent="register">
             <div class="mb-3">
                 <label for="name" class="form-label">Имя</label>
-                <input v-model="name" type="name" class="form-control" id="name" placeholder="Имя">
+                <input v-model="name" type="text" class="form-control" id="name" placeholder="Имя">
                 <div v-if="errors?.name" class="alert alert-danger mt-3" role="alert">
                     <span v-for="message in errors.name">
                         {{ message }}

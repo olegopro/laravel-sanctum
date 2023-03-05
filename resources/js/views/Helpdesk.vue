@@ -16,7 +16,7 @@
 
             <div class="mb-3">
                 <label for="telephone" class="form-label">Телефон</label>
-                <input v-model="telephone" type="text" class="form-control" id="telephone">
+                <input v-model="telephone" type="tel" v-mask="'+7 (###) ###-##-##'" class="form-control" id="telephone">
                 <div v-if="errors?.telephone" class="alert alert-danger mt-3" role="alert">
                     <span v-for="message in errors.telephone">
                         {{ message }}
@@ -46,8 +46,11 @@
 </template>
 
 <script>
+    import { mask } from 'vue-the-mask'
 
     export default {
+        directives: { mask },
+
         data() {
             return {
                 name: null,

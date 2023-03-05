@@ -5335,6 +5335,11 @@ vue-template-compiler@^2.6.12:
     de-indent "^1.0.2"
     he "^1.2.0"
 
+vue-the-mask@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/vue-the-mask/-/vue-the-mask-0.11.1.tgz#91ee01008354ae57bccc79bb61b65f32d971d9d5"
+  integrity sha512-UquSfnSWejD0zAfcD+3jJ1chUAkOAyoxya9Lxh9acCRtrlmGcAIvd0cQYraWqKenbuZJUdum+S174atv2AuEHQ==
+
 vue3-perfect-scrollbar@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/vue3-perfect-scrollbar/-/vue3-perfect-scrollbar-1.6.1.tgz#296e0e0c61a8f6278184f5b09bb45d137af92327"

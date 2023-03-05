@@ -5,6 +5,7 @@ declare(strict_types=1);
 return [
     'required'   => 'Заполните поле :attribute',
     'numeric'    => 'Поле :attribute должно состоять из цифр',
+    'regex'      => 'Неверный формат поля :attribute',
     'attributes' => [
         'address'                  => 'адрес',
         'age'                      => 'возраст',

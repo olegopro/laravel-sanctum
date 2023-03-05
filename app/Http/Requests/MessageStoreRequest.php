@@ -25,7 +25,7 @@ class MessageStoreRequest extends FormRequest
     {
         return [
             'name'      => 'required|min:3|max:255',
-            'telephone' => 'required|numeric',
+            'telephone' => ['required', 'regex:/(\+7|8|7)\s?[(]?(\d{3})[)]\s?(\d{3})[\s-]?(\d{2})[\s-]?(\d{2})/'],
             'message'   => 'required|min:3|max:255',
             'status'    => 'required'
         ];
