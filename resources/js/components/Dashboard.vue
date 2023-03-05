@@ -11,7 +11,6 @@
         methods:{
             getData(){
                 axios.get('/api/dashboard')
-                    .then(response => console.log(response))
             }
         }
     }

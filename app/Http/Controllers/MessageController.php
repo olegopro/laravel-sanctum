@@ -15,7 +15,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        return response(Message::all());
+        return response(Message::orderByDesc('created_at')->get());
     }
 
     /**

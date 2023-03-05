@@ -3,6 +3,7 @@
         <div class="col">
             <h1 class="h2">Сообщения</h1>
         </div>
+        <TelephoneFilter v-model="filter" />
         <div class="col">
             <button class="btn btn-success btn-action float-end"
                     @click="allMessages"
@@ -27,7 +28,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="message in getMessages" :key="message.id">
+                    <tr v-for="message in filterMessages" :key="message.id">
                         <th scope="row">{{ message.id }}</th>
                         <td>{{ message.name }}</td>
                         <td>{{ message.telephone }}</td>
@@ -80,9 +81,10 @@
     import EditMessage from '../components/Messages/Modals/EditMessage.vue'
     import { mapActions, mapGetters } from 'vuex'
     import { computed } from 'vue'
+    import TelephoneFilter from '../components/Messages/TelephoneFilter.vue'
 
     export default {
-        components: { EditMessage, MessageStatus, DeleteMessage },
+        components: { TelephoneFilter, EditMessage, MessageStatus, DeleteMessage },
 
         provide() {
             return {
@@ -93,13 +95,27 @@
 
         data() {
             return {
+                filter: {},
                 saveMessageErrors: null,
                 closeMessagePopup: false
             }
         },
 
         computed: {
-            ...mapGetters('messages', ['getMessages'])
+            ...mapGetters('messages', ['getMessages']),
+
+            filterMessages() {
+
+                return this.getMessages
+                    .filter(request => {
+                        if (this.filter.telephone) {
+                            console.log(this.filter.telephone)
+                            return request.telephone.includes(this.filter.telephone)
+                        }
+
+                        return request
+                    })
+            }
         },
 
         mounted() {
@@ -116,7 +132,7 @@
 
             },
 
-            saveMessage(payload){
+            saveMessage(payload) {
                 this.updateMessage(payload)
                     .then(() => {
                         this.closeMessagePopup = true
