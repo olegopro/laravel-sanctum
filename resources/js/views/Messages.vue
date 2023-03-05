@@ -56,6 +56,7 @@
                                     data-bs-target="#deleteMessage"
                                     data-bs-toggle="modal"
                                     type="button"
+                                    @click="setMessageId(message.id)"
                                 >
                                     <svg width="16" height="16">
                                         <use xlink:href="#delete"></use>
@@ -71,7 +72,7 @@
     </div>
 
     <Teleport to="body">
-        <DeleteMessage />
+        <DeleteMessage ref="messageId" @delete-message="deleteMessageById"/>
         <EditMessage ref="messageData" @save-message="saveMessage" />
     </Teleport>
 
@@ -84,6 +85,7 @@
     import { mapActions, mapGetters } from 'vuex'
     import { computed } from 'vue'
     import MessagesFilter from '../components/Messages/MessagesFilter.vue'
+    import messages from '../store/modules/messages'
 
     export default {
         components: { MessagesFilter, EditMessage, MessageStatus, DeleteMessage },
@@ -104,6 +106,9 @@
         },
 
         computed: {
+            messages() {
+                return messages
+            },
             ...mapGetters('messages', ['getMessages']),
 
             filterMessages() {
@@ -131,7 +136,7 @@
         },
 
         methods: {
-            ...mapActions('messages', ['allMessages', 'getMessageById', 'updateMessage']),
+            ...mapActions('messages', ['allMessages', 'getMessageById', 'updateMessage', 'deleteMessage']),
 
             setDataMessage(id) {
                 this.saveMessageErrors = null
@@ -143,7 +148,11 @@
                             created_at: this.dateFormat(data.created_at)
                         }
                     })
+            },
 
+            setMessageId(id){
+                this.closeMessagePopup = false
+                this.$refs.messageId.id = id
             },
 
             saveMessage(payload) {
@@ -151,6 +160,17 @@
                     .then(() => {
                         this.closeMessagePopup = true
                         this.allMessages()
+                    })
+                    .catch(error => {
+                        this.saveMessageErrors = error.response.data.errors
+                    })
+            },
+
+            deleteMessageById(id){
+                this.deleteMessage(id)
+                    .then(() => {
+                        this.allMessages()
+                        this.closeMessagePopup = true
                     })
                     .catch(error => {
                         this.saveMessageErrors = error.response.data.errors

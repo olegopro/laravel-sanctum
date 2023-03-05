@@ -25,7 +25,7 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text">Телефон</span>
-                        <input class="form-control" type="text" v-model="data.telephone">
+                        <input class="form-control" type="tel" v-mask="'+7 (###) ###-##-##'" v-model="data.telephone">
                     </div>
 
                     <div v-if="messageError?.telephone" class="alert alert-danger mt-3" role="alert">
@@ -64,10 +64,11 @@
 
     import MessageStatus from '../MessageStatus.vue'
     import { Modal } from 'bootstrap'
-    import login from '../../../views/Login.vue'
+    import { mask } from 'vue-the-mask'
 
     export default {
         components: { MessageStatus },
+        directives: { mask },
         inject: ['saveMessageErrors', 'closeMessagePopup'],
         emits: ['save-message'],
 

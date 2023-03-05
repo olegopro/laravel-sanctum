@@ -11,6 +11,10 @@ export default {
         addMessages(state, messages) {
             state.messages = messages
         },
+
+        deleteMessage(state, id) {
+            state.messages.splice(state.messages.findIndex(key => key.id === id), 1)
+        }
     },
 
     actions: {
@@ -24,12 +28,19 @@ export default {
             return data
         },
 
-        async updateMessage(_, {id, name, telephone, message, status}) {
+        async updateMessage(_, { id, name, telephone, message, status }) {
             const { data } = await axios.put(`http://localhost/api/messages/${id}`, {
-               name, telephone, message, status
+                name, telephone, message, status
             })
 
             return data
+        },
+
+        async deleteMessage({ commit }, id) {
+            await axios.delete((`http://localhost/api/messages/${id}`))
+            commit('deleteMessage', id)
+
+            // return data
         }
     },
 
