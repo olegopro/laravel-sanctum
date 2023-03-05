@@ -45,7 +45,7 @@
                         </span>
                     </div>
 
-                    <select class="form-select mb-3" id="status" aria-label="Default select example" v-model="data.status">
+                    <select class="form-select" id="status" aria-label="Default select example" v-model="data.status">
                         <option value="processed">Обработано</option>
                         <option value="waiting">В ожидании</option>
                     </select>

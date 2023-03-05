@@ -7,7 +7,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Удалить аккаунт с id: <strong>{{ id }}</strong></p>
+                    <p class="mb-0">Удалить аккаунт с id: <strong>{{ id }}</strong></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" @click="modalHide">Отмена</button>

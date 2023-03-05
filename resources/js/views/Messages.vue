@@ -31,7 +31,7 @@
                     <tr v-for="message in filterMessages" :key="message.id">
                         <th scope="row">{{ message.id }}</th>
                         <td>{{ message.name }}</td>
-                        <td>{{ message.telephone }}</td>
+                        <td class="telephone-thread">{{ message.telephone }}</td>
                         <td>{{ dateFormat(message.created_at) }}</td>
                         <td>{{ message.message }}</td>
                         <td>
@@ -72,7 +72,7 @@
     </div>
 
     <Teleport to="body">
-        <DeleteMessage ref="messageId" @delete-message="deleteMessageById"/>
+        <DeleteMessage ref="messageId" @delete-message="deleteMessageById" />
         <EditMessage ref="messageData" @save-message="saveMessage" />
     </Teleport>
 
@@ -150,7 +150,7 @@
                     })
             },
 
-            setMessageId(id){
+            setMessageId(id) {
                 this.closeMessagePopup = false
                 this.$refs.messageId.id = id
             },
@@ -166,7 +166,7 @@
                     })
             },
 
-            deleteMessageById(id){
+            deleteMessageById(id) {
                 this.deleteMessage(id)
                     .then(() => {
                         this.allMessages()
@@ -186,3 +186,9 @@
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    .telephone-thread {
+        white-space: nowrap;
+    }
+</style>

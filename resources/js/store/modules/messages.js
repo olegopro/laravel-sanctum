@@ -39,8 +39,6 @@ export default {
         async deleteMessage({ commit }, id) {
             await axios.delete((`http://localhost/api/messages/${id}`))
             commit('deleteMessage', id)
-
-            // return data
         }
     },
 
