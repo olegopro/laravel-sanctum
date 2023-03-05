@@ -3,7 +3,7 @@
         <div class="col">
             <h1 class="h2">Сообщения</h1>
         </div>
-        <TelephoneFilter v-model="filter" />
+        <MessagesFilter v-model="filter" />
         <div class="col">
             <button class="btn btn-success btn-action float-end"
                     @click="allMessages"
@@ -81,10 +81,10 @@
     import EditMessage from '../components/Messages/Modals/EditMessage.vue'
     import { mapActions, mapGetters } from 'vuex'
     import { computed } from 'vue'
-    import TelephoneFilter from '../components/Messages/TelephoneFilter.vue'
+    import MessagesFilter from '../components/Messages/MessagesFilter.vue'
 
     export default {
-        components: { TelephoneFilter, EditMessage, MessageStatus, DeleteMessage },
+        components: { MessagesFilter, EditMessage, MessageStatus, DeleteMessage },
 
         provide() {
             return {
@@ -111,6 +111,13 @@
                         if (this.filter.telephone) {
                             console.log(this.filter.telephone)
                             return request.telephone.includes(this.filter.telephone)
+                        }
+
+                        return request
+                    })
+                    .filter(request => {
+                        if (this.filter.status && this.filter.status !== 'Выберите статус') {
+                            return request.status.includes(this.filter.status)
                         }
 
                         return request
