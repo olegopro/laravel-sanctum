@@ -27,5 +27,3 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::resource('/add-message', HelpdeskController::class);
-
-

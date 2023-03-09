@@ -20,10 +20,11 @@ class MessageFactory extends Factory
         ];
 
         return [
-            'name'      => $this->faker->name,
-            'telephone' => $this->faker->e164PhoneNumber,
-            'message'   => $this->faker->text(rand(20, 255)),
-            'status'    => $taskStatus[array_rand($taskStatus)]
+            'name'       => $this->faker->name,
+            'telephone'  => $this->faker->e164PhoneNumber,
+            'message'    => $this->faker->text(rand(20, 255)),
+            'status'     => $taskStatus[array_rand($taskStatus)],
+            'created_at' => $this->faker->dateTimeThisMonth()->format('Y-m-d H:i:s')
         ];
     }
 }
