@@ -44,12 +44,9 @@ class MessageController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MessageStoreRequest $request, $id)
+    public function update(MessageStoreRequest $request,Message $message)
     {
-        $message = Message::find($id);
-        $message->fill($request->validated())->save();
-
-        return response($message->fresh());
+        $message->update($request->validated());
     }
 
     /**
