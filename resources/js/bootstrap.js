@@ -23,7 +23,6 @@ window.axios.interceptors.response.use((response) => response,
     error => {
         if (error.response.status === 401 || error.response.status === 419) {
             const token = localStorage.getItem('token')
-            window.axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
 
             if (token) {
                 localStorage.removeItem('token')

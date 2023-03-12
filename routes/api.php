@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::resource('/messages', MessageController::class);
+    Route::post('/logout', [AuthController::class, 'logout']);
 });
 
 Route::resource('/add-message', HelpdeskController::class);

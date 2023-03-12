@@ -34,8 +34,8 @@
 
         methods: {
             logout() {
-                axios.post('/logout')
-                    .then(() => {
+                axios.post('/api/logout')
+                    .then(response => {
                         localStorage.removeItem('token')
                         this.$router.push({ name: 'user.login' })
                     })

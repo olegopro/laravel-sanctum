@@ -62,21 +62,21 @@
 
         methods: {
             register() {
-                axios.get('/sanctum/csrf-cookie').then(() => {
-                    axios.post('/register', {
+                    axios.post('/api/register', {
                         name: this.name,
                         email: this.email,
                         password: this.password,
                         password_confirmation: this.password_confirmation
                     })
                         .then(response => {
-                            localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN'])
-                            this.$router.push({name: 'dashboard'})
+                            localStorage.setItem("token", response.data.token)
+                            window.axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`
+
+                            this.$router.push({ name: 'user.messages' })
                         })
                         .catch(error =>  this.errors = error.response.data.errors)
-                })
+                }
             }
-        }
     }
 </script>
 

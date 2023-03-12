@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginCheck;
-use App\Http\Requests\RegistrationCheck;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -43,7 +41,7 @@ class AuthController extends Controller
 
         if (!Auth::attempt($attr)) {
             return response()->json([
-                'errors'  => (object)[
+                'errors' => (object)[
                     'password' => [
                         'Некорректные имя или пароль'
                     ]
@@ -55,5 +53,14 @@ class AuthController extends Controller
             'user'  => User::where('email', '=', $request->input('email'))->firstOrFail(),
             'token' => auth()->user()->createToken('user_token')->plainTextToken
         ]);
+    }
+
+    public function logout(Request $request)
+    {
+        auth()->user()->tokens()->delete();
+        // $request->user()->currentAccessToken()->delete();
+
+        return response()->json('Вы вышли из системы');
+
     }
 }

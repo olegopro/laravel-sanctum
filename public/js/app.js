@@ -21263,7 +21263,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     logout: function logout() {
       var _this = this;
-      axios.post('/logout').then(function () {
+      axios.post('/api/logout').then(function (response) {
         localStorage.removeItem('token');
         _this.$router.push({
           name: 'user.login'
@@ -21763,20 +21763,19 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     register: function register() {
       var _this = this;
-      axios.get('/sanctum/csrf-cookie').then(function () {
-        axios.post('/register', {
-          name: _this.name,
-          email: _this.email,
-          password: _this.password,
-          password_confirmation: _this.password_confirmation
-        }).then(function (response) {
-          localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN']);
-          _this.$router.push({
-            name: 'dashboard'
-          });
-        })["catch"](function (error) {
-          return _this.errors = error.response.data.errors;
+      axios.post('/api/register', {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        password_confirmation: this.password_confirmation
+      }).then(function (response) {
+        localStorage.setItem("token", response.data.token);
+        window.axios.defaults.headers.common["Authorization"] = "Bearer ".concat(response.data.token);
+        _this.$router.push({
+          name: 'user.messages'
         });
+      })["catch"](function (error) {
+        return _this.errors = error.response.data.errors;
       });
     }
   }
@@ -22843,7 +22842,6 @@ window.axios.interceptors.response.use(function (response) {
 }, function (error) {
   if (error.response.status === 401 || error.response.status === 419) {
     var token = localStorage.getItem('token');
-    window.axios.defaults.headers.common["Authorization"] = "Bearer ".concat(token);
     if (token) {
       localStorage.removeItem('token');
     }
