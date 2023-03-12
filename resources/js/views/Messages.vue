@@ -67,7 +67,7 @@
                     </tr>
                 </tbody>
             </table>
-            <h3 v-else class="text-center">Список аккаунтов пустой</h3>
+            <h3 v-else class="text-center">Список сообщений пуст</h3>
         </div>
     </div>
 

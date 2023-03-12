@@ -21194,7 +21194,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getToken: function getToken() {
-      this.token = localStorage.getItem('x_xsrf_token');
+      this.token = localStorage.getItem('token');
     }
   },
   computed: {
@@ -21264,7 +21264,7 @@ __webpack_require__.r(__webpack_exports__);
     logout: function logout() {
       var _this = this;
       axios.post('/logout').then(function () {
-        localStorage.removeItem('x_xsrf_token');
+        localStorage.removeItem('token');
         _this.$router.push({
           name: 'user.login'
         });
@@ -21594,18 +21594,17 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     login: function login() {
       var _this = this;
-      axios.get('/sanctum/csrf-cookie').then(function () {
-        axios.post('/login', {
-          email: _this.email,
-          password: _this.password
-        }).then(function (response) {
-          localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN']);
-          _this.$router.push({
-            name: 'user.messages'
-          });
-        })["catch"](function (error) {
-          return _this.errors = error.response.data.errors;
+      axios.post('/api/login', {
+        email: this.email,
+        password: this.password
+      }).then(function (response) {
+        localStorage.setItem("token", response.data.token);
+        window.axios.defaults.headers.common["Authorization"] = "Bearer ".concat(response.data.token);
+        _this.$router.push({
+          name: 'user.messages'
         });
+      })["catch"](function (error) {
+        return _this.errors = error.response.data.errors;
       });
     }
   }
@@ -22623,7 +22622,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return $options.setMessageId(message.id);
       }
     }, _hoisted_16, 8 /* PROPS */, _hoisted_14)])])]);
-  }), 128 /* KEYED_FRAGMENT */))])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h3", _hoisted_17, "Список аккаунтов пустой"))])]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Teleport, {
+  }), 128 /* KEYED_FRAGMENT */))])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h3", _hoisted_17, "Список сообщений пуст"))])]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Teleport, {
     to: "body"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_DeleteMessage, {
     ref: "messageId",
@@ -22836,14 +22835,17 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/dist/browser/axios.cjs");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.withCredentials = true;
+
+// window.axios.defaults.withCredentials = true
+
 window.axios.interceptors.response.use(function (response) {
   return response;
 }, function (error) {
   if (error.response.status === 401 || error.response.status === 419) {
-    var token = localStorage.getItem('x_xsrf_token');
+    var token = localStorage.getItem('token');
+    window.axios.defaults.headers.common["Authorization"] = "Bearer ".concat(token);
     if (token) {
-      localStorage.removeItem('x_xsrf_token');
+      localStorage.removeItem('token');
     }
     router.push({
       name: 'user.login'
@@ -22954,7 +22956,7 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_7__.createRouter)({
   linkActiveClass: 'active'
 });
 router.beforeEach(function (to, from, next) {
-  var token = localStorage.getItem('x_xsrf_token');
+  var token = localStorage.getItem('token');
   if (!token) {
     if (to.name === 'user.login' || to.name === 'user.registration' || to.name === 'helpdesk') {
       return next();

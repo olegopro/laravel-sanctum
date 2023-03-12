@@ -40,17 +40,20 @@
 
         methods: {
             login() {
-                axios.get('/sanctum/csrf-cookie').then(() => {
-                    axios.post('/login', {
-                        email: this.email,
-                        password: this.password
-                    })
-                        .then(response => {
-                            localStorage.setItem('x_xsrf_token', response.config.headers['X-XSRF-TOKEN'])
-                            this.$router.push({name: 'user.messages'})
-                        })
-                        .catch(error =>  this.errors = error.response.data.errors)
+
+                axios.post('/api/login', {
+                    email: this.email,
+                    password: this.password
                 })
+                    .then(response => {
+                        localStorage.setItem("token", response.data.token)
+                        window.axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`
+
+                        this.$router.push({ name: 'user.messages' })
+                    })
+                    .catch(error => {
+                        return this.errors = error.response.data.errors
+                    })
             }
         }
     }

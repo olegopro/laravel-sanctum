@@ -73,7 +73,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    const token = localStorage.getItem('x_xsrf_token')
+    const token = localStorage.getItem('token')
 
     if (!token) {
         if (to.name === 'user.login' || to.name === 'user.registration' || to.name === 'helpdesk') {

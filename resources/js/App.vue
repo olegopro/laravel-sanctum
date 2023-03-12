@@ -33,7 +33,7 @@
 
         methods: {
             getToken() {
-                this.token = localStorage.getItem('x_xsrf_token')
+                this.token = localStorage.getItem('token')
             }
         },
 
